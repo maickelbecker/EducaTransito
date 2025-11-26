@@ -42,6 +42,7 @@ android {
     }
 
     composeOptions {
+        // Usa a versão do compilador compatível com Compose BOM
         kotlinCompilerExtensionVersion = "1.5.4"
     }
 
@@ -56,7 +57,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
 
-    // Compose
+    // Compose (todas as versões controladas pelo BOM)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
