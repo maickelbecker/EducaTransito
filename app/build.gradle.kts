@@ -6,15 +6,14 @@ plugins {
 
 android {
     namespace = "com.maickelbecker.educatransito"
-    compileSdk = 36   // ← atualizado para atender às libs modernas
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.maickelbecker.educatransito"
-        minSdk = 24
-        targetSdk = 36 // ← recomendado atualizar junto
+        minSdk = 26
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -56,7 +55,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
 
-    // Compose (todas as versões controladas pelo BOM)
+    // Compose (versões controladas pelo BOM)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
@@ -67,8 +66,10 @@ dependencies {
     // Testes unitários
     testImplementation(libs.junit)
     testImplementation(libs.androidx.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
 
     // Testes instrumentados
+    androidTestImplementation(platform(libs.androidx.compose.bom)) // ← necessário para testes instrumentados
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
