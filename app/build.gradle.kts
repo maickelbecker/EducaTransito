@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.maickelbecker.educatransito"
-    compileSdk = 34
+    compileSdk = 36   // ← atualizado para atender às libs modernas
 
     defaultConfig {
         applicationId = "com.maickelbecker.educatransito"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 36 // ← recomendado atualizar junto
         versionCode = 1
         versionName = "1.0"
 
@@ -42,7 +42,6 @@ android {
     }
 
     composeOptions {
-        // Usa a versão do compilador compatível com Compose BOM
         kotlinCompilerExtensionVersion = "1.5.4"
     }
 
