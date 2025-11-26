@@ -1,18 +1,20 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
 }
+
 android {
-    namespace = "br.univali.educatransito"
-    compileSdk = 36
+    namespace = "com.maickelbecker.educatransito"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "br.univali.educatransito"
-        minSdk = 26
-        targetSdk = 36
+        applicationId = "com.maickelbecker.educatransito"
+        minSdk = 24
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -27,12 +29,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 
     buildFeatures {
@@ -40,44 +42,34 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
+        kotlinCompilerExtensionVersion = "1.5.4"
     }
 
-    testOptions {
-        unitTests.isIncludeAndroidResources = true
+    packaging {
+        resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
     }
 }
 
 dependencies {
-    // Compose UI
-    implementation(platform("androidx.compose:compose-bom:2025.11.01"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.activity:activity-compose:1.9.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0")
-    implementation("androidx.navigation:navigation-compose:2.7.6")
-
     // Core
-    implementation("androidx.core:core-ktx:1.13.0")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
 
-    // WorkManager
-    implementation("androidx.work:work-runtime-ktx:2.9.0")
+    // Compose
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.material3)
 
     // Testes unitários
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    // Testes instrumentados e de UI
-    androidTestImplementation(platform("androidx.compose:compose-bom:2025.11.01"))
-    androidTestImplementation("androidx.test.ext:junit:1.1.6")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    testImplementation(libs.junit)
+    testImplementation(libs.androidx.junit)
 
-    // Debug e preview
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    // Testes instrumentados
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
