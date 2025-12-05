@@ -1,15 +1,15 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kotlinCompose)
 }
 
 android {
-    namespace = "com.maickelbecker.educatransito"
+    namespace = "br.univali.educatransito"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.maickelbecker.educatransito"
+        applicationId = "br.univali.educatransito"
         minSdk = 26
         targetSdk = 36
         versionCode = 1
@@ -47,30 +47,34 @@ android {
     packaging {
         resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
     }
+
+    lint {
+        abortOnError = true
+        checkReleaseBuilds = true
+    }
 }
 
 dependencies {
-    // Core
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidxCoreKtx)
+    implementation(libs.androidxLifecycleRuntimeKtx)
+    implementation(libs.androidxActivityCompose)
 
-    // Compose (versões controladas pelo BOM)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.material3)
+    implementation(platform(libs.androidxComposeBom))
+    implementation(libs.androidxComposeUi)
+    implementation(libs.androidxComposeUiGraphics)
+    implementation(libs.androidxComposeUiTooling)
+    implementation(libs.androidxComposeUiToolingPreview)
+    implementation(libs.androidxComposeMaterial3)
+    implementation(libs.androidxMaterialIconsExtended)
+    implementation(libs.androidxNavigationCompose)
 
-    // Testes unitários
     testImplementation(libs.junit)
-    testImplementation(libs.androidx.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.kotlinxCoroutinesTest)
 
-    // Testes instrumentados
-    androidTestImplementation(platform(libs.androidx.compose.bom)) // ← necessário para testes instrumentados
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    androidTestImplementation(platform(libs.androidxComposeBom))
+    androidTestImplementation(libs.androidxTestRunner)
+    androidTestImplementation(libs.androidxTestExtJunit)
+    androidTestImplementation(libs.androidxEspressoCore)
+    androidTestImplementation(libs.androidxComposeUiTestJunit4)
+    debugImplementation(libs.androidxComposeUiTestManifest)
 }
