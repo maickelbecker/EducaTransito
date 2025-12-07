@@ -6,10 +6,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import br.univali.educatransito.viewmodel.CadastroViewModel
 
 @Composable
-fun CadastroPaiScreen(viewModel: CadastroViewModel) {
+fun CadastroPaiScreen(
+    viewModel: CadastroViewModel = viewModel(),
+    onCadastroSucesso: () -> Unit
+) {
     var nome by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
@@ -33,12 +37,10 @@ fun CadastroPaiScreen(viewModel: CadastroViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        mensagemErro?.let {
-            ErrorScreen(it) // chama tela de erro
-        }
-
+        mensagemErro?.let { ErrorScreen(it) }
         if (cadastroSucesso == true) {
-            SuccessScreen("Cadastro realizado com sucesso!") // chama tela de sucesso
+            SuccessScreen("Cadastro do pai realizado com sucesso!")
+            onCadastroSucesso()
         }
     }
 }

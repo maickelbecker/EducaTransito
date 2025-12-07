@@ -10,7 +10,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import br.univali.educatransito.viewmodel.CadastroFilhoViewModel
 
 @Composable
-fun CadastroFilhoScreen(viewModel: CadastroFilhoViewModel = viewModel()) {
+fun CadastroFilhoScreen(
+    viewModel: CadastroFilhoViewModel = viewModel(),
+    onCadastroSucesso: () -> Unit
+) {
     var nome by remember { mutableStateOf("") }
     var idade by remember { mutableStateOf("") }
     var escola by remember { mutableStateOf("") }
@@ -22,23 +25,9 @@ fun CadastroFilhoScreen(viewModel: CadastroFilhoViewModel = viewModel()) {
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        OutlinedTextField(
-            value = nome,
-            onValueChange = { nome = it },
-            label = { Text("Nome do Filho") }
-        )
-
-        OutlinedTextField(
-            value = idade,
-            onValueChange = { idade = it },
-            label = { Text("Idade") }
-        )
-
-        OutlinedTextField(
-            value = escola,
-            onValueChange = { escola = it },
-            label = { Text("Escola") }
-        )
+        OutlinedTextField(value = nome, onValueChange = { nome = it }, label = { Text("Nome do Filho") })
+        OutlinedTextField(value = idade, onValueChange = { idade = it }, label = { Text("Idade") })
+        OutlinedTextField(value = escola, onValueChange = { escola = it }, label = { Text("Escola") })
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -51,14 +40,10 @@ fun CadastroFilhoScreen(viewModel: CadastroFilhoViewModel = viewModel()) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Exibe erro se houver
-        mensagemErro?.let {
-            ErrorScreen(it)
-        }
-
-        // Exibe sucesso se cadastro for válido
+        mensagemErro?.let { ErrorScreen(it) }
         if (cadastroSucesso == true) {
             SuccessScreen("Cadastro do filho realizado com sucesso!")
+            onCadastroSucesso()
         }
     }
 }
